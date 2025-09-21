@@ -22,7 +22,7 @@ def view_student(request, id):
 def add_student(request):
     form = StudentForm()
     if request.method == 'POST':
-        form = StudentForm(request.POST)
+        form = StudentForm(request.POST, request.FILES)
         if form.is_valid():
             new_student_number = form.cleaned_data['student_id']
             new_first_name = form.cleaned_data['first_name']
@@ -30,6 +30,7 @@ def add_student(request):
             new_email = form.cleaned_data['email']
             new_department = form.cleaned_data['department']
             new_gpa = form.cleaned_data['gpa']
+            new_image = form.cleaned_data['image']
 
             new_student = Student(
                 student_id = new_student_number,
@@ -38,6 +39,7 @@ def add_student(request):
                 email = new_email,
                 department = new_department,
                 gpa = new_gpa,
+                image = new_image
                 )
             
             new_student.save()
@@ -51,7 +53,7 @@ def edit_student_info(request, id):
     students = Student.objects.get(pk=id)
     form = StudentForm(instance=students)
     if request.method == "POST":
-        form = StudentForm(request.POST, instance=students)
+        form = StudentForm(request.POST, request.FILES, instance=students)
         if form.is_valid():
             form.save()
             context = {'form': form, 'success': True}

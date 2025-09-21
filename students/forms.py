@@ -13,6 +13,7 @@ class StudentForm(forms.ModelForm):
             'email': 'Email',
             'department': 'Department',
             'gpa': 'GPA',
+            'image': 'Photo',
         }
 
         widgets = {
@@ -22,4 +23,5 @@ class StudentForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'department': forms.TextInput(attrs={'class': 'form-control'}),
             'gpa': forms.NumberInput(attrs={'class': 'form-control'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control', 'accept': 'image/*'})
         }

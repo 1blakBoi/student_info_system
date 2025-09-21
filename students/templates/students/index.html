@@ -48,14 +48,17 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <ul class="list-unstyled">
-                        <li>Matric Number: <strong>{{student.student_id}}</strong></li>
-                        <li>First Name: <strong>{{student.first_name}}</strong></li>
-                        <li>Last Name: <strong>{{student.last_name}}</strong></li>
-                        <li>Email: <strong>{{student.email}}</strong></li>
-                        <li>Department: <strong>{{student.department}}</strong></li>
-                        <li>GPA: <strong>{{student.gpa}}</strong></li>
+                    <img src="{{student.image.url}}" class="mx-auto d-block w-50 mb-4 rounded" alt="Photo" style="height: 200px; object-fit: cover;">
+                    <div class="mx-auto" styles="width: 500px;">
+                      <ul class="list-unstyled">
+                      <li>Matric Number: <small>{{student.student_id}}</small></li>
+                      <li>First Name: <small>{{student.first_name}}</small></li>
+                      <li>Last Name: <small>{{student.last_name}}</small></li>
+                      <li>Email: <small>{{student.email}}</small></li>
+                      <li>Department: <small>{{student.department}}</small></li>
+                      <li>GPA: <small>{{student.gpa}}</small></li>
                     </ul>
+                    </div>
                   </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
