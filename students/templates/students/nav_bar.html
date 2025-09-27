@@ -1,19 +1,39 @@
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-primary sticky-top" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'homepage' %}"><i class="fa-solid fa-graduation-cap fa-lg"></i> NAUB Students Information System</a>
+        <a class="navbar-brand" href="{% url 'homepage' %}"><i class="fa-solid fa-graduation-cap fa-lg"></i> STUDENT INFORMATION SYSTEM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav ms-auto">
-                 
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'homepage' %}">
+                <a class="nav-link active" href="{% url 'homepage' %}">
+                    <i class="fa-solid fa-plus fa-lg"></i> Home</a>
+                </li>
+                {% if user.is_staff %} 
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'all-students' %}">
                     <i class="fa-solid fa-list fa-lg"></i> All Students</a>
                 </li>
+                {% endif %}
+                {% if user.is_staff %}
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'add_student' %}">
                     <i class="fa-solid fa-plus fa-lg"></i> Add Student</a>
+                </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout'%}">
+                    <i class="fa-solid fa-right-to-bracket fa-lg"></i>Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'login'%}">
+                    <i class="fa-solid fa-right-to-bracket fa-lg"></i>Login</a>
+                </li>
+                {% endif %}
+                
                 
                 <!--li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>

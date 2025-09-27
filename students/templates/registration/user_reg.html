@@ -1,0 +1,37 @@
+{% extends 'students/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{%comment%}<h3 class="text-center m-4">User Registration</h3>
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card bg-light mb-4">
+            <div class="card-header">
+                <i class="fa-solid fa-address-card fa-lg"></i> User Registration 
+            </div>
+            <div class="card-body">
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.non_fields_errors}}
+                    {{form|crispy}}
+                    <div class="text-center">
+                        <button class="btn btn-primary rounded w-50" type="submit">Register</button>
+                         
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endcomment %}
+<div class="container d-flex align-items-center justify-content-center">
+    <div class="card shadow p-4 mt-5" style="width: 500px;">
+        <h4 class="text-center mb-4">Sign Up</h4>
+        <form action="" method="POST">
+            {%csrf_token%}
+            {{ form|crispy }}
+            <p>Already have an account? <a href="{% url 'login'%}" class="text-decoration-none">Login</a></p>
+             <button type="submit" class="btn btn-primary w-100"> Register </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

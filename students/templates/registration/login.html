@@ -1,0 +1,30 @@
+{% extends 'students/base.html' %}
+ 
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="width: 360px;">
+        <h4 class="text-center mb-4">Sign In</h4>
+        <form action="" method="POST">
+            {%csrf_token%}
+            
+            {% comment %}Username{% endcomment %}
+            <div class="mb-3">
+                <label for="username" class="form-control">Username</label>
+                <input type="text" class="form-control" name="username" placeholder="Enter username" required>
+            </div>
+
+            {% comment %}password{% endcomment %}
+            <div class="mb-3">
+                <label for="password" class="form-control">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+            </div>
+
+            <p>Don't have an account? <a href="{% url 'user-registration' %}" class="text-decoration-none">Signup</a></p>
+
+            <button type="submit" class="btn btn-primary w-100"> <i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
+
+        </form>
+    </div>
+
+</div> 
+{% endblock %}

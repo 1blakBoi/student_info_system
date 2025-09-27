@@ -3,15 +3,32 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from .models import Student
-from .forms import StudentForm
+from .forms import StudentForm, RegistrationForm
+#from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import logout, authenticate, login
 
 
-def index(request):
+def homepage(request):
+    return render(request, 'students/index.html')
+
+
+def all_students(request):
     students = Student.objects.all()
     student_count = students.count()
     context = {'students': students, 'student_count': student_count}
-    return render(request, 'students/index.html', context)
+    return render(request, 'students/all_student.html', context)
 
+
+def user_registration(request):
+    form = RegistrationForm()
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('homepage')
+    context = {'form': form}
+    return render(request, 'registration/user_reg.html', context)
 
 def view_student(request, id):
     student = Student.objects.get(pk=id)
@@ -71,3 +88,20 @@ def delete_student_info(request, id):
         students.delete()
         return HttpResponseRedirect(reverse('homepage'))
 
+
+
+def login_view(request):
+    if request.method == 'POST':
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            login(request, user)
+            if user.is_superuser:
+                return redirect('homepage')
+            else:
+                return redirect('student_dashboard')
+    return render(request, 'registration/login.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('homepage')
