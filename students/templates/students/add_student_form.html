@@ -4,7 +4,7 @@
 {% if success %}
 <div class="alert alert-success" role="alert">
     The new Student was added successfully!
-    <a href="{% url 'homepage'%}" class="alert-link">Go to Home Page</a>
+    <a href="{% url 'all-students'%}" class="alert-link">View Students</a>
 </div>
 
 {% else %}
@@ -31,7 +31,7 @@
 <div class="container d-flex align-items-center justify-content-center">
     <div class="card shadow p-4 mt-5" style="width: 550px;">
         <h4 class="text-center mb-4">Add Student</h4>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {%csrf_token%}
             {{ form|crispy }}
              <button type="submit" class="btn btn-primary rounded w-100">Add</button>

@@ -7,6 +7,7 @@ from .forms import StudentForm, RegistrationForm
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
 
 
 def homepage(request):
@@ -26,7 +27,7 @@ def user_registration(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('homepage')
+            return redirect('login')
     context = {'form': form}
     return render(request, 'registration/user_reg.html', context)
 
@@ -34,9 +35,7 @@ def view_student(request, id):
     student = Student.objects.get(pk=id)
     return HttpResponseRedirect(reverse('homepage'))
 
-
-
-def add_student(request):
+def add_student_info(request):
     form = StudentForm()
     if request.method == 'POST':
         form = StudentForm(request.POST, request.FILES)
@@ -60,11 +59,13 @@ def add_student(request):
                 )
             
             new_student.save()
-            return render(request, 'students/add_student_form.html', {'form': StudentForm(), 'success': True})
-    else:
-        form = StudentForm()
+            if request.user.is_staff:
+                return redirect('all-students')
+            else:
+                return redirect('dashboard')
+        return render(request, 'students/add_student_form.html', {'form': StudentForm(), 'success': True})
+    
     return render(request, 'students/add_student_form.html', {'form': form})
-
 
 def edit_student_info(request, id):
     students = Student.objects.get(pk=id)
@@ -81,14 +82,11 @@ def edit_student_info(request, id):
         context = {'form': form}
     return render(request, 'students/edit_form.html', context)
 
-
 def delete_student_info(request, id):
     if request.method == 'POST':
         students = Student.objects.get(pk=id)
         students.delete()
-        return HttpResponseRedirect(reverse('homepage'))
-
-
+        return HttpResponseRedirect(reverse('all-students'))  
 
 def login_view(request):
     if request.method == 'POST':
@@ -96,12 +94,16 @@ def login_view(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect('homepage')
+                return redirect('all-students')
             else:
-                return redirect('student_dashboard')
+                return redirect('dashboard')
     return render(request, 'registration/login.html')
-
 
 def logout_view(request):
     logout(request)
     return redirect('homepage')
+
+@login_required
+def student_dashboard(request):
+    student = Student.objects.get(user=request.user)
+    return render(request, 'students/students_dashboard.html', {'student': student})

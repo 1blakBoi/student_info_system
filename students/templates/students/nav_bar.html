@@ -8,18 +8,12 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                 <a class="nav-link active" href="{% url 'homepage' %}">
-                    <i class="fa-solid fa-plus fa-lg"></i> Home</a>
+                    <i class="fa-solid fa-house fa-lg"></i> <strong>Home</strong></a>
                 </li>
                 {% if user.is_staff %} 
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'all-students' %}">
                     <i class="fa-solid fa-list fa-lg"></i> All Students</a>
-                </li>
-                {% endif %}
-                {% if user.is_staff %}
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'add_student' %}">
-                    <i class="fa-solid fa-plus fa-lg"></i> Add Student</a>
                 </li>
                 {% endif %}
                 {% if user.is_authenticated %}

@@ -10,10 +10,7 @@ class Student(models.Model):
     email = models.EmailField(max_length=100, unique=True)
     department = models.CharField(max_length=50)
     gpa = models.FloatField()
-    image = models.ImageField(upload_to='uploads/', 
-                              null=True, 
-                              blank=True,
-                              default='default_profile.png',)
+    image = models.ImageField(upload_to='uploads')
     #uploaded_at = models.DateTimeField(default=timezone.now)
 
 

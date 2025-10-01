@@ -1,14 +1,25 @@
 
 {% extends 'students/base.html' %}
 {% block content %}
-<div class="container-fluid">
-  <h3 class="m-4">All Students</h3>
-  <p class="text-danger ms-4 mt-0">{{student_count}} Students Available</p>
+<div class="container-fluid mt-4">
+  <div class="container-fluid mt-4 d-flex justify-content-between align-items-center">
+    <div>
+      <h3 class="m-4">All Students</h3>
+    {% comment %}<p class="text-danger ms-4">{{student_count}} Students Available</p>{% endcomment %}
+    </div>
+    <div>
+       <a href="{% url 'add_student' %}" target="_blank" class="btn sm fs-5 btn-warning rounded shadow py-1 px-3">Add Student</a>
+    </div>
+    
+  </div>
+  
+  
+  
   <div class="row">
       <div class="col-12">
         {% if students %}
             <div class="card bg-light mb-4 ms-4 me-4 " >
-              <div class="card-header"><i class="fa-solid fa-list fa-lg"></i> Student Record</div>
+              <div class="card-header"><i class="fa-solid fa-list fa-lg"></i> Student Record </div>
               <div class="card-body">
               <p class="card-text">
               <div class="table-responsive">
